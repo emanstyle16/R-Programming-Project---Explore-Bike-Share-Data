@@ -1,0 +1,785 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{explore-bike-share-data}{%
+\subsubsection{Explore Bike Share Data}\label{explore-bike-share-data}}
+
+For this project, your goal is to ask and answer three questions about
+the available bikeshare data from Washington, Chicago, and New York.
+This notebook can be submitted directly through the workspace when you
+are confident in your results.
+
+You will be graded against the project
+\href{https://review.udacity.com/\#!/rubrics/2508/view}{Rubric} by a
+mentor after you have submitted. To get you started, you can use the
+template below, but feel free to be creative in your solutions!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{c+c1}{\PYZsh{} Here I am importing all of the necessary libraries for the analysis:}
+          
+          \PY{n}{ny} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{new\PYZus{}york\PYZus{}city.csv\PYZsq{}}\PY{p}{)}
+          \PY{n}{wash} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{washington.csv\PYZsq{}}\PY{p}{)}
+          \PY{n}{chi} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{chicago.csv\PYZsq{}}\PY{p}{)}
+          \PY{n+nf}{library}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
+          \PY{n+nf}{library}\PY{p}{(}\PY{n}{tidyverse}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{c+c1}{\PYZsh{}Checking the data in the ny dataframe}
+          \PY{n+nf}{head}\PY{p}{(}\PY{n}{ny}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllll}
+ X & Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type & Gender & Birth.Year\\
+\hline
+	 5688089                   & 2017-06-11 14:55:05       & 2017-06-11 15:08:21       &  795                      & Suffolk St \& Stanton St & W Broadway \& Spring St  & Subscriber                & Male                      & 1998                     \\
+	 4096714                   & 2017-05-11 15:30:11       & 2017-05-11 15:41:43       &  692                      & Lexington Ave \& E 63 St & 1 Ave \& E 78 St         & Subscriber                & Male                      & 1981                     \\
+	 2173887                   & 2017-03-29 13:26:26       & 2017-03-29 13:48:31       & 1325                      & 1 Pl \& Clinton St       & Henry St \& Degraw St    & Subscriber                & Male                      & 1987                     \\
+	 3945638                   & 2017-05-08 19:47:18       & 2017-05-08 19:59:01       &  703                      & Barrow St \& Hudson St   & W 20 St \& 8 Ave         & Subscriber                & Female                    & 1986                     \\
+	 6208972                   & 2017-06-21 07:49:16       & 2017-06-21 07:54:46       &  329                      & 1 Ave \& E 44 St         & E 53 St \& 3 Ave         & Subscriber                & Male                      & 1992                     \\
+	 1285652                   & 2017-02-22 18:55:24       & 2017-02-22 19:12:03       &  998                      & State St \& Smith St     & Bond St \& Fulton St     & Subscriber                & Male                      & 1986                     \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{c+c1}{\PYZsh{}Checking the data in the wash dataframe}
+          \PY{n+nf}{head}\PY{p}{(}\PY{n}{wash}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllll}
+ X & Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type\\
+\hline
+	 1621326                                               & 2017-06-21 08:36:34                                   & 2017-06-21 08:44:43                                   &  489.066                                              & 14th \& Belmont St NW                                & 15th \& K St NW                                      & Subscriber                                           \\
+	  482740                                               & 2017-03-11 10:40:00                                   & 2017-03-11 10:46:00                                   &  402.549                                              & Yuma St \& Tenley Circle NW                          & Connecticut Ave \& Yuma St NW                        & Subscriber                                           \\
+	 1330037                                               & 2017-05-30 01:02:59                                   & 2017-05-30 01:13:37                                   &  637.251                                              & 17th St \& Massachusetts Ave NW                      & 5th \& K St NW                                       & Subscriber                                           \\
+	  665458                                               & 2017-04-02 07:48:35                                   & 2017-04-02 08:19:03                                   & 1827.341                                              & Constitution Ave \& 2nd St NW/DOL                    & M St \& Pennsylvania Ave NW                          & Customer                                             \\
+	 1481135                                               & 2017-06-10 08:36:28                                   & 2017-06-10 09:02:17                                   & 1549.427                                              & Henry Bacon Dr \& Lincoln Memorial Circle NW         & Maine Ave \& 7th St SW                               & Subscriber                                           \\
+	 1148202                                               & 2017-05-14 07:18:18                                   & 2017-05-14 07:24:56                                   &  398.000                                              & 1st \& K St SE                                       & Eastern Market Metro / Pennsylvania Ave \& 7th St SE & Subscriber                                           \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{c+c1}{\PYZsh{}Checking the data in the chi dataframe}
+          \PY{n+nf}{head}\PY{p}{(}\PY{n}{chi}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllll}
+ X & Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type & Gender & Birth.Year\\
+\hline
+	 1423854                         & 2017-06-23 15:09:32             & 2017-06-23 15:14:53             &  321                            & Wood St \& Hubbard St          & Damen Ave \& Chicago Ave       & Subscriber                      & Male                            & 1992                           \\
+	  955915                        & 2017-05-25 18:19:03            & 2017-05-25 18:45:53            & 1610                           & Theater on the Lake            & Sheffield Ave \& Waveland Ave & Subscriber                     & Female                         & 1992                          \\
+	    9031                         & 2017-01-04 08:27:49             & 2017-01-04 08:34:45             &  416                            & May St \& Taylor St            & Wood St \& Taylor St           & Subscriber                      & Male                            & 1981                           \\
+	  304487                         & 2017-03-06 13:49:38             & 2017-03-06 13:55:28             &  350                            & Christiana Ave \& Lawrence Ave & St. Louis Ave \& Balmoral Ave  & Subscriber                      & Male                            & 1986                           \\
+	   45207                         & 2017-01-17 14:53:07             & 2017-01-17 15:02:01             &  534                            & Clark St \& Randolph St        & Desplaines St \& Jackson Blvd  & Subscriber                      & Male                            & 1975                           \\
+	 1473887                         & 2017-06-26 09:01:20             & 2017-06-26 09:11:06             &  586                            & Clinton St \& Washington Blvd  & Canal St \& Taylor St          & Subscriber                      & Male                            & 1990                           \\
+\end{tabular}
+
+
+    
+    \hypertarget{data-cleaning-wrangling}{%
+\subsubsection{Data Cleaning
+(Wrangling)}\label{data-cleaning-wrangling}}
+
+\textbf{In the following command boxes, I take a few steps to ensure my
+data is ready for the analysis. I remove columns that I dont need,
+validate the selection of the columns, ensure each table is labeled with
+its appropriate location, merge all tables into one, and validate the
+merge was successful}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{c+c1}{\PYZsh{}Selecting only the columns that I will need to answer the questions}
+          \PY{n}{ny.new}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n}{ny}\PY{n+nf}{[c}\PY{p}{(}\PY{l+m}{2}\PY{o}{:}\PY{l+m}{7}\PY{p}{)}\PY{n}{]}
+          \PY{n}{wash.new}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n}{wash}\PY{n+nf}{[c}\PY{p}{(}\PY{l+m}{2}\PY{o}{:}\PY{l+m}{7}\PY{p}{)}\PY{n}{]}
+          \PY{n}{chi.new}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n}{chi}\PY{n+nf}{[c}\PY{p}{(}\PY{l+m}{2}\PY{o}{:}\PY{l+m}{7}\PY{p}{)}\PY{n}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{c+c1}{\PYZsh{}Validating if the columns were selected correctly for each dataset}
+          \PY{n+nf}{names}\PY{p}{(}\PY{n}{ny.new}\PY{p}{)}
+          \PY{n+nf}{names}\PY{p}{(}\PY{n}{wash.new}\PY{p}{)}
+          \PY{n+nf}{names}\PY{p}{(}\PY{n}{chi.new}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 'Start.Time'
+\item 'End.Time'
+\item 'Trip.Duration'
+\item 'Start.Station'
+\item 'End.Station'
+\item 'User.Type'
+\end{enumerate*}
+
+
+    
+    \begin{enumerate*}
+\item 'Start.Time'
+\item 'End.Time'
+\item 'Trip.Duration'
+\item 'Start.Station'
+\item 'End.Station'
+\item 'User.Type'
+\end{enumerate*}
+
+
+    
+    \begin{enumerate*}
+\item 'Start.Time'
+\item 'End.Time'
+\item 'Trip.Duration'
+\item 'Start.Station'
+\item 'End.Station'
+\item 'User.Type'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{c+c1}{\PYZsh{}labeling the location prior to merge}
+          \PY{n}{wash.new}\PY{o}{\PYZdl{}}\PY{n}{location} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{DC\PYZsq{}}
+          \PY{n}{ny.new}\PY{o}{\PYZdl{}}\PY{n}{location} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{NYC\PYZsq{}}
+          \PY{n}{chi.new}\PY{o}{\PYZdl{}}\PY{n}{location} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{CHI\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{c+c1}{\PYZsh{}merge datasets together into one dataset}
+          \PY{n}{mainList} \PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{rbind}\PY{p}{(}\PY{n}{wash.new}\PY{p}{,}\PY{n}{ny.new}\PY{p}{,}\PY{n}{chi.new}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{}Validating the merge was successful by showing the top rows of the new dataframe}
+          \PY{n+nf}{head}\PY{p}{(}\PY{n}{mainList}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllll}
+ Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type & location\\
+\hline
+	 2017-06-21 08:36:34                                   & 2017-06-21 08:44:43                                   &  489.066                                              & 14th \& Belmont St NW                                & 15th \& K St NW                                      & Subscriber                                            & DC                                                   \\
+	 2017-03-11 10:40:00                                   & 2017-03-11 10:46:00                                   &  402.549                                              & Yuma St \& Tenley Circle NW                          & Connecticut Ave \& Yuma St NW                        & Subscriber                                            & DC                                                   \\
+	 2017-05-30 01:02:59                                   & 2017-05-30 01:13:37                                   &  637.251                                              & 17th St \& Massachusetts Ave NW                      & 5th \& K St NW                                       & Subscriber                                            & DC                                                   \\
+	 2017-04-02 07:48:35                                   & 2017-04-02 08:19:03                                   & 1827.341                                              & Constitution Ave \& 2nd St NW/DOL                    & M St \& Pennsylvania Ave NW                          & Customer                                              & DC                                                   \\
+	 2017-06-10 08:36:28                                   & 2017-06-10 09:02:17                                   & 1549.427                                              & Henry Bacon Dr \& Lincoln Memorial Circle NW         & Maine Ave \& 7th St SW                               & Subscriber                                            & DC                                                   \\
+	 2017-05-14 07:18:18                                   & 2017-05-14 07:24:56                                   &  398.000                                              & 1st \& K St SE                                       & Eastern Market Metro / Pennsylvania Ave \& 7th St SE & Subscriber                                            & DC                                                   \\
+\end{tabular}
+
+
+    
+    \hypertarget{question-1}{%
+\subsubsection{Question 1}\label{question-1}}
+
+\textbf{What is the percentage of subcribers from the entire population}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{c+c1}{\PYZsh{}in this command I create a dataframe to store the aggregate results}
+          \PY{n}{aggList} \PY{o}{=} \PY{n+nf}{aggregate}\PY{p}{(}\PY{n}{location}\PY{o}{\PYZti{}}\PY{n}{User.Type}\PY{p}{,}\PY{n}{mainList}\PY{p}{,}\PY{n}{FUN} \PY{o}{=} \PY{n}{length}\PY{p}{)}
+          \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{aggList}\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{User\PYZus{}Type\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{User\PYZus{}Count\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Below I create a percentage column for each user type}
+          \PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Percentage} \PY{o}{=} \PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{User\PYZus{}Count}\PY{o}{/}\PY{n+nf}{sum}\PY{p}{(}\PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{User\PYZus{}Count}\PY{p}{)}
+          \PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Percentage} \PY{o}{=} \PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Percentage} \PY{o}{*} \PY{l+m}{100}
+          \PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Percentage} \PY{o}{=} \PY{n+nf}{round}\PY{p}{(}\PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Percentage}\PY{p}{,}\PY{n}{digits} \PY{o}{=} \PY{l+m}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{c+c1}{\PYZsh{}Showing the new datafram to ensure it was created correctly}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{aggList}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   User\_Type User\_Count Percentage
+1                   121       0.08
+2   Customer      30754      20.17
+3 Subscriber     121576      79.75
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{c+c1}{\PYZsh{}In this command I create a Pie Chart to show the percentages for each User Type in a graphical form}
+          \PY{n}{aggListlab} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{aggList}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{aggListlab}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n}{User\PYZus{}Count}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nf}{paste0}\PY{p}{(}\PY{n}{User\PYZus{}Type}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{(\PYZsq{}}\PY{p}{,} \PY{n+nf}{round}\PY{p}{(}\PY{n}{User\PYZus{}Count}\PY{o}{/}\PY{n+nf}{sum}\PY{p}{(}\PY{n}{User\PYZus{}Count}\PY{p}{)}\PY{o}{*}\PY{l+m}{100}\PY{p}{,}\PY{n}{digits} \PY{o}{=} \PY{l+m}{2}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZpc{})\PYZsq{}} \PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{geom\PYZus{}bar}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m}{1}\PY{p}{,} \PY{n}{stat} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{identity\PYZdq{}}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{geom\PYZus{}text}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+m}{1.4}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{n}{User\PYZus{}Type} \PY{p}{)}\PY{p}{,} \PY{n}{position} \PY{o}{=} \PY{n+nf}{position\PYZus{}stack}\PY{p}{(}\PY{n}{vjust} \PY{o}{=} \PY{l+m}{0.7}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{theme\PYZus{}void}\PY{p}{(}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{theme\PYZus{}classic}\PY{p}{(}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{theme}\PY{p}{(}\PY{n}{legend.position} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{bottom\PYZdq{}}\PY{p}{)}
+          \PY{n}{pieChart}  \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{coord\PYZus{}polar}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{y\PYZdq{}}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m}{0}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+}   \PY{n+nf}{theme}\PY{p}{(}\PY{n}{axis.line} \PY{o}{=} \PY{n+nf}{element\PYZus{}blank}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+}   \PY{n+nf}{theme}\PY{p}{(}\PY{n}{axis.text} \PY{o}{=} \PY{n+nf}{element\PYZus{}blank}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+}   \PY{n+nf}{theme}\PY{p}{(}\PY{n}{axis.ticks} \PY{o}{=} \PY{n+nf}{element\PYZus{}blank}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+}   \PY{n+nf}{labs}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{)}
+          \PY{n}{pieChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{pieChart} \PY{o}{+} \PY{n+nf}{labs}\PY{p}{(}\PY{n}{title} \PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Pie chart of User Type for entire population\PYZdq{}}\PY{p}{)}
+          \PY{n}{pieChart}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Summary of your question 1 results goes here}
+\textgreater{}Based on the results, \textbf{subscribers consist of
+79.75\% of the total population.} The pie chart clearly show the
+dominance of the subscriber population compared to the remainder
+
+\begin{quote}
+Additional insights: 20.17\% of the population were categorized as
+``Customers'' and the rest had no categorization (0.08\%) . This can
+signify a failure in categorization for a small subsection of the
+population and should be further investigated
+\end{quote}
+
+    \hypertarget{question-2}{%
+\subsubsection{Question 2}\label{question-2}}
+
+\textbf{What are the average trip durations for each user type by
+location}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{c+c1}{\PYZsh{}in this command I created a dataframe to store the aggregate results}
+          \PY{n}{aggList} \PY{o}{=} \PY{n+nf}{aggregate}\PY{p}{(}\PY{n}{Trip.Duration}\PY{o}{\PYZti{}}\PY{n}{User.Type}\PY{o}{+}\PY{n}{location}\PY{p}{,}\PY{n}{mainList}\PY{p}{,}\PY{n}{mean}\PY{p}{)}
+          \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{aggList}\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{User\PYZus{}Type\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Location\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Average\PYZus{}Time\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{c+c1}{\PYZsh{}Here I am printing the list to ensure it came out correct}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{aggList}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   User\_Type Location Average\_Time
+1                 CHI    3020.0000
+2   Customer      CHI    1929.9771
+3 Subscriber      CHI     685.0270
+4   Customer       DC    2634.4289
+5 Subscriber       DC     733.3260
+6                 NYC    1838.4915
+7   Customer      NYC    2193.0759
+8 Subscriber      NYC     755.3829
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{c+c1}{\PYZsh{}During Question 1\PYZsq{}s excersize, I found out the blank user\PYZus{}type entries were outliers, with only 0.08\PYZpc{} of the entire dataset being unlabeled. So for better charting, I remove those from the dataframe:}
+          
+          \PY{n}{aggListFiltered} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{aggList}\PY{n}{[aggList}\PY{o}{\PYZdl{}}\PY{n}{User\PYZus{}Type} \PY{o}{!=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{]}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{aggListFiltered}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   User\_Type Location Average\_Time
+2   Customer      CHI    1929.9771
+3 Subscriber      CHI     685.0270
+4   Customer       DC    2634.4289
+5 Subscriber       DC     733.3260
+7   Customer      NYC    2193.0759
+8 Subscriber      NYC     755.3829
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{} In this command box, I am creating the bar graph. I decided to flip the axis as it is better to compare average times with}
+          
+          \PY{n}{bre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{\PYZhy{}3000}\PY{p}{,} \PY{l+m}{3000}\PY{p}{,} \PY{n}{by} \PY{o}{=} \PY{l+m}{1000}\PY{p}{)}\PY{p}{)}
+          \PY{n}{labl} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{3000}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{\PYZhy{}1000}\PY{p}{)}\PY{p}{,} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{1000}\PY{p}{,} \PY{l+m}{3000}\PY{p}{,} \PY{l+m}{1000}\PY{p}{)}\PY{p}{)}
+          \PY{n}{barplt} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{aggListFiltered} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}  \PY{c+c1}{\PYZsh{} Cast the users table as a number}
+          \PY{n+nf}{mutate}\PY{p}{(}\PY{n}{Average\PYZus{}Time} \PY{o}{=} \PY{n+nf}{as.numeric}\PY{p}{(}\PY{n}{Average\PYZus{}Time}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+          \PY{n+nf}{ggplot}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{Location}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{Average\PYZus{}Time}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n}{User\PYZus{}Type}\PY{p}{,} \PY{p}{)}\PY{p}{)} \PY{o}{+}
+          \PY{n+nf}{geom\PYZus{}col}\PY{p}{(}\PY{n}{position} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dodge\PYZdq{}}\PY{p}{)} \PY{o}{+}
+          \PY{n+nf}{scale\PYZus{}y\PYZus{}continuous}\PY{p}{(}\PY{n}{breaks} \PY{o}{=} \PY{n}{bre}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labl}\PY{p}{)} \PY{o}{+}
+          \PY{n+nf}{coord\PYZus{}flip}\PY{p}{(}\PY{p}{)} \PY{o}{+}
+          \PY{n+nf}{labs}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Average Trip Duration\PYZdq{}}\PY{p}{)} \PY{o}{+}
+          \PY{n+nf}{theme}\PY{p}{(}\PY{n}{plot.title} \PY{o}{=} \PY{n+nf}{element\PYZus{}text}\PY{p}{(}\PY{n}{hjust} \PY{o}{=} \PY{l+m}{.5}\PY{p}{)}\PY{p}{,}
+          \PY{n}{axis.ticks} \PY{o}{=} \PY{n+nf}{element\PYZus{}blank}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{barplt}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Summary of your question 2 results goes here.}
+
+\begin{quote}
+The average trip duration are as follows:
+\end{quote}
+
+\begin{quote}
+Chicago Customers: 1929
+\end{quote}
+
+\begin{quote}
+Chicago Subscribers : 685
+\end{quote}
+
+\begin{quote}
+DC Customers: 2634
+\end{quote}
+
+\begin{quote}
+DC Subscribers : 733
+\end{quote}
+
+\begin{quote}
+NYC Customers: 2193
+\end{quote}
+
+\begin{quote}
+NYC SUbscribers: 755
+\end{quote}
+
+It is clear that Customers hold a much higher average trip duration
+compared to subscribers on every city. A root cause analysis is
+warranted to determine the main reason why customers utilize the bikes
+more. The learning lessons can be apply to assist in increasing the trip
+time of the subscribers to increase revenue.
+
+    \hypertarget{question-3}{%
+\subsubsection{Question 3}\label{question-3}}
+
+\textbf{What location shares the most amount of bikes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{c+c1}{\PYZsh{}Here I am creating a list out of the aggregation of city bike count:}
+          \PY{n}{aggList} \PY{o}{=} \PY{n+nf}{aggregate}\PY{p}{(}\PY{n}{User.Type}\PY{o}{\PYZti{}}\PY{n}{location}\PY{p}{,}\PY{n}{mainList}\PY{p}{,}\PY{n}{FUN} \PY{o}{=} \PY{n}{length}\PY{p}{)}
+          \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{aggList}\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Location\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Total\PYZus{}Count\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{c+c1}{\PYZsh{}I printed the list to see if the aggregation worked}
+          
+          \PY{n}{aggList}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+ Location & Total\_Count\\
+\hline
+	 CHI   &  8630\\
+	 DC    & 89051\\
+	 NYC   & 54770\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{c+c1}{\PYZsh{}Here I am creating the stacked bar chart:}
+          
+          \PY{n}{aggListlab} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{aggList}
+          \PY{n}{stackedChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{aggListlab}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n}{Total\PYZus{}Count}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n}{Location}\PY{p}{)}\PY{p}{)}
+          \PY{n}{stackedChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{stackedChart} \PY{o}{+} \PY{n+nf}{geom\PYZus{}bar}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m}{.7}\PY{p}{,} \PY{n}{stat} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{identity\PYZdq{}}\PY{p}{)}
+          \PY{n}{stackedChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{stackedChart} \PY{o}{+} \PY{n+nf}{geom\PYZus{}text}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{label} \PY{o}{=} \PY{n}{Total\PYZus{}Count} \PY{p}{)}\PY{p}{,} \PY{n}{position} \PY{o}{=} \PY{n+nf}{position\PYZus{}stack}\PY{p}{(}\PY{n}{vjust} \PY{o}{=} \PY{l+m}{0.7}\PY{p}{)}\PY{p}{)}
+          \PY{n}{stackedChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{stackedChart} \PY{o}{+} \PY{n+nf}{theme\PYZus{}void}\PY{p}{(}\PY{p}{)}
+          \PY{n}{stackedChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{stackedChart} \PY{o}{+} \PY{n+nf}{theme\PYZus{}classic}\PY{p}{(}\PY{p}{)}
+          \PY{n}{stackedChart} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{stackedChart} \PY{o}{+} \PY{n+nf}{theme}\PY{p}{(}\PY{n}{legend.position} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{left\PYZdq{}}\PY{p}{)}
+          \PY{n}{stackedChart}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{c+c1}{\PYZsh{}Here I used different math functions to analyze the data in different ways}
+          \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Mean of Total Count\PYZdq{}}\PY{p}{,}\PY{p}{)}
+          \PY{n+nf}{mean}\PY{p}{(}\PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Total\PYZus{}Count}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Median of Total Count\PYZdq{}}\PY{p}{,}\PY{p}{)}
+          \PY{n+nf}{median}\PY{p}{(}\PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Total\PYZus{}Count}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Standard Deviation of Total Count\PYZdq{}}\PY{p}{,}\PY{p}{)}
+          \PY{n+nf}{sd}\PY{p}{(}\PY{n}{aggList}\PY{o}{\PYZdl{}}\PY{n}{Total\PYZus{}Count}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Here I printed the final results list}
+          \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{List of Total Count\PYZdq{}}\PY{p}{,}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{aggList}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Mean of Total Count"
+
+    \end{Verbatim}
+
+    50817
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Median of Total Count"
+
+    \end{Verbatim}
+
+    54770
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Standard Deviation of Total Count"
+
+    \end{Verbatim}
+
+    40355.9656928192
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "List of Total Count"
+  Location Total\_Count
+1      CHI        8630
+2       DC       89051
+3      NYC       54770
+
+    \end{Verbatim}
+
+    \textbf{Summary of your question 3 results goes here.}
+
+The location that shares the most amount is DC at 89,051. NYC comes at a
+second place at 54,770. Chicaco comes at third place at 8,630 bikes. DC
+bike sharing market should be further studied to determine why they are
+being more successful at renting out bikes. The lessons can be used to
+expand the markets of NYC and Chicago.
+
+    \hypertarget{finishing-up}{%
+\subsection{Finishing Up}\label{finishing-up}}
+
+\begin{quote}
+Congratulations! You have reached the end of the Explore Bikeshare Data
+Project. You should be very proud of all you have accomplished!
+\end{quote}
+
+\begin{quote}
+\textbf{Tip}: Once you are satisfied with your work here, check over
+your report to make sure that it is satisfies all the areas of the
+\href{https://review.udacity.com/\#!/rubrics/2508/view}{rubric}.
+\end{quote}
+
+\hypertarget{directions-to-submit}{%
+\subsection{Directions to Submit}\label{directions-to-submit}}
+
+\begin{quote}
+Before you submit your project, you need to create a .html or .pdf
+version of this notebook in the workspace here. To do that, run the code
+cell below. If it worked correctly, you should get a return code of 0,
+and you should see the generated .html file in the workspace directory
+(click on the orange Jupyter icon in the upper left).
+\end{quote}
+
+\begin{quote}
+Alternatively, you can download this report as .html via the
+\textbf{File} \textgreater{} \textbf{Download as} submenu, and then
+manually upload it into the workspace directory by clicking on the
+orange Jupyter icon in the upper left, then using the Upload button.
+\end{quote}
+
+\begin{quote}
+Once you've done this, you can submit your project by clicking on the
+``Submit Project'' button in the lower right here. This will create and
+submit a zip file with this .ipynb doc and the .html or .pdf version you
+created. Congratulations!
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nf}{system}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{python \PYZhy{}m nbconvert Explore\PYZus{}bikeshare\PYZus{}data.ipynb\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
